@@ -201,11 +201,15 @@
     overflow:hidden;
   }
   .portrait-frame img{
-    width:100%; height:100%;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
     object-fit:cover;
-    display:none; /* becomes block automatically once a real src loads */
+    object-position:center;
+    display:block;
   }
-  .portrait-frame img[src]:not([src=""]){ display:block; }
+  .portrait-frame.has-image .placeholder-mark{ display:none; }
 
   .placeholder-mark{
     text-align:center;
@@ -451,7 +455,9 @@
       <div class="portrait-card">
         <div class="portrait-frame">
           <!-- Replace src below with your own photo file, e.g. src="zeenoor.jpg" -->
-          <img src="your-photo.jpg" alt="Portrait of Zeenoor Ayub">
+          <img src="your-photo.jpg" alt="Portrait of Zeenoor Ayub"
+               onload="this.parentElement.classList.add('has-image')"
+               onerror="this.style.display='none'; this.parentElement.classList.remove('has-image')">
           <div class="placeholder-mark">
             <div class="monogram">ZA</div>
             <div class="hint">Add portrait &mdash; src=&quot;your-photo.jpg&quot;</div>
